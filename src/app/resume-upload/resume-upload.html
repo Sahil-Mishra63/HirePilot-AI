@@ -1,0 +1,394 @@
+<div class="resume-page">
+
+  <!-- Background decorations -->
+  <div class="bg-circle circle-1"></div>
+  <div class="bg-circle circle-2"></div>
+
+
+  <!-- ================================
+       NAVBAR
+  ================================= -->
+
+  <nav class="navbar">
+
+    <div class="brand">
+      <div class="brand-icon">H</div>
+      <span>HirePilot</span>
+    </div>
+
+    <div class="nav-right">
+      <span class="step-text">Step 1 of 3</span>
+
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+  </nav>
+
+
+  <!-- ================================
+       MAIN CONTENT
+  ================================= -->
+
+  <main class="main-content">
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-header">
+
+      <div class="ai-badge">
+        <span class="sparkle">✦</span>
+        AI-Powered Resume Analysis
+      </div>
+
+      <h1>
+        Let's understand your
+        <span>skills</span>
+      </h1>
+
+      <p>
+        Upload your resume and let HirePilot's AI analyze your
+        experience, skills and expertise to personalize your interview.
+      </p>
+
+    </section>
+
+
+    <!-- ================================
+         UPLOAD SECTION
+    ================================= -->
+
+    <section class="upload-section">
+
+      <div
+        class="upload-card"
+        [class.dragging]="isDragging"
+        [class.has-file]="selectedFile"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        (click)="openFilePicker()"
+      >
+
+
+        <!-- ================================
+             NO FILE SELECTED
+        ================================= -->
+
+        <div
+          *ngIf="!selectedFile"
+          class="upload-content"
+        >
+
+          <div class="upload-icon">
+            <span>↑</span>
+          </div>
+
+          <h2>
+            Upload your resume
+          </h2>
+
+          <p class="upload-description">
+            Drag & drop your resume here or
+            <span class="browse-text">
+              browse files
+            </span>
+          </p>
+
+          <p class="file-info">
+            PDF, DOC or DOCX • Maximum 5 MB
+          </p>
+
+
+          <!-- Hidden file input -->
+
+          <input
+            #fileInput
+            type="file"
+            accept=".pdf,.doc,.docx"
+            hidden
+            (change)="onFileSelected($event)"
+            (click)="$event.stopPropagation()"
+          />
+
+        </div>
+
+
+        <!-- ================================
+             FILE SELECTED
+        ================================= -->
+
+        <div
+          *ngIf="selectedFile"
+          class="selected-file"
+          (click)="$event.stopPropagation()"
+        >
+
+          <div class="file-icon">
+            📄
+          </div>
+
+
+          <div class="file-details">
+
+            <h3>
+              {{ selectedFile!.name }}
+            </h3>
+
+            <p>
+              {{ getFileSize(selectedFile!.size) }}
+            </p>
+
+          </div>
+
+
+          <button
+            class="remove-btn"
+            type="button"
+            (click)="removeFile()"
+          >
+            ×
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================
+           ANALYZE BUTTON
+      ================================= -->
+
+      <button
+        class="analyze-btn"
+        type="button"
+        [disabled]="!selectedFile || isAnalyzing"
+        (click)="analyzeResume($event)"
+      >
+
+        <!-- Normal state -->
+
+        <span *ngIf="!isAnalyzing">
+          ✦ Analyze My Resume
+        </span>
+
+
+        <!-- Loading state -->
+
+        <span
+          *ngIf="isAnalyzing"
+          class="loading-state"
+        >
+
+          <span class="spinner"></span>
+
+          Analyzing Resume...
+
+        </span>
+
+      </button>
+
+
+      <!-- ================================
+           PRIVACY NOTE
+      ================================= -->
+
+      <div class="privacy-note">
+
+        <span>🔒</span>
+
+        <span>
+          Your resume is secure and only used to personalize your
+          interview experience.
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         EXTRACTED SKILLS
+    ================================= -->
+
+    <section
+      *ngIf="skills.length > 0"
+      class="skills-section"
+    >
+
+
+      <!-- Skills header -->
+
+      <div class="skills-header">
+
+        <div>
+
+          <div class="section-label">
+            <span>✦</span>
+            AI ANALYSIS COMPLETE
+          </div>
+
+          <h2>
+            Your skills
+          </h2>
+
+          <p>
+            We've identified these skills from your resume.
+          </p>
+
+        </div>
+
+
+        <!-- Skill count -->
+
+        <div class="skill-count">
+
+          {{ skills.length }}
+
+          <span>
+            skills found
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================
+           SKILL TAGS
+      ================================= -->
+
+      <div class="skills-container">
+
+        <div
+          class="skill-tag"
+          *ngFor="let skill of skills"
+        >
+
+          <span class="check">
+            ✓
+          </span>
+
+          {{ skill }}
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================
+           CONTINUE BUTTON
+      ================================= -->
+
+      <button
+        class="continue-btn"
+        type="button"
+        (click)="continueToInterview()"
+      >
+
+        Continue to Interview
+
+        <span>
+          →
+        </span>
+
+      </button>
+
+    </section>
+
+
+    <!-- ================================
+         FEATURES
+    ================================= -->
+
+    <section class="features">
+
+
+      <!-- Feature 1 -->
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          ⚡
+        </div>
+
+        <div>
+
+          <h3>
+            AI Skill Detection
+          </h3>
+
+          <p>
+            Automatically identifies technical and soft skills.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- Feature 2 -->
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          🎯
+        </div>
+
+        <div>
+
+          <h3>
+            Personalized Interview
+          </h3>
+
+          <p>
+            Questions are generated based on your experience.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- Feature 3 -->
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          📊
+        </div>
+
+        <div>
+
+          <h3>
+            Smart Evaluation
+          </h3>
+
+          <p>
+            Get detailed feedback on your interview performance.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================================
+       FOOTER
+  ================================= -->
+
+  <footer>
+
+    <p>
+      © 2026 HirePilot · AI Interview Simulator
+    </p>
+
+  </footer>
+
+</div>
