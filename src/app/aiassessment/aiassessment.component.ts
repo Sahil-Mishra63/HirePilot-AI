@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-ai-assessment',
-  templateUrl: './ai-assessment.component.html',
-  styleUrls: ['./ai-assessment.component.css']
+  selector: 'app-aiassessment',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './aiassessment.component.html',
+  styleUrl: './aiassessment.component.scss'
 })
-export class AiAssessmentComponent {
-
+export class AiassessmentComponent {
   currentQuestion = 3;
   totalQuestions = 10;
 
@@ -19,5 +22,4 @@ export class AiAssessmentComponent {
     'Tell me about a project where you faced a difficult technical problem and how you solved it.';
 
   answer = '';
-
 }
