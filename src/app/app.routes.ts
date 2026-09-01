@@ -5,5 +5,6 @@ export const routes: Routes = [
   {
     path: 'resume-upload',
     component: ResumeUpload
+    
   }
 ];
