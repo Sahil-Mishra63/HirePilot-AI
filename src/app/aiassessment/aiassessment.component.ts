@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+interface InterviewQuestion {
+  question: string;
+  category: string;
+  expectedKeywords?: string[];
+  difficulty?: string;
+}
 
 @Component({
   selector: 'app-aiassessment',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './aiassessment.component.html',
   styleUrl: './aiassessment.component.scss'
 })
