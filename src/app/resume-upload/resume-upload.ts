@@ -1,10 +1,23 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+interface ResumeResult {
+  headline?: string;
+  yearsOfExperience?: number;
+  technicalSkills: string[];
+  education: string[];
+  projects: string[];
+  experience: string[];
+  interviewAreas: string[];
+}
+
+type UploadState = 'idle' | 'error' | 'ready' | 'analyzing' | 'complete';
 
 @Component({
   selector: 'app-resume-upload',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './resume-upload.html',
   styleUrl: './resume-upload.scss'
 })
@@ -15,52 +28,78 @@ export class ResumeUpload {
 
   selectedFile: File | null = null;
 
-  isDragging = false;
+  state: UploadState = 'idle';
 
-  isAnalyzing = false;
+  errorMessage = '';
 
-  skills: string[] = [];
+  result: ResumeResult | null = null;
 
+  // Change this if your Flask backend uses another port
+  private readonly API_URL = 'http://localhost:5000/api/resume/analyze';
 
-  openFilePicker(): void {
-    if (!this.selectedFile) {
-      this.fileInput.nativeElement.click();
-    }
+  constructor(private http: HttpClient) {}
+
+  /* ---------------- FILE BROWSER ---------------- */
+
+  openFileBrowser(): void {
+    this.fileInput.nativeElement.click();
   }
 
+  /* ---------------- FILE SELECT ---------------- */
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
 
-    if (input.files && input.files.length > 0) {
-      this.handleFile(input.files[0]);
+    if (!input.files || input.files.length === 0) {
+      return;
     }
+
+    this.handleFile(input.files[0]);
   }
 
+  /* ---------------- DRAG & DROP ---------------- */
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
-    this.isDragging = true;
-  }
+    event.stopPropagation();
 
-
-  onDragLeave(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging = false;
-  }
-
-
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging = false;
-
-    if (event.dataTransfer?.files.length) {
-      this.handleFile(event.dataTransfer.files[0]);
+    if (this.state !== 'analyzing') {
+      this.state = 'ready';
     }
   }
 
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!this.selectedFile && this.state !== 'error') {
+      this.state = 'idle';
+    }
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.state === 'analyzing') {
+      return;
+    }
+
+    const files = event.dataTransfer?.files;
+
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    this.handleFile(files[0]);
+  }
+
+  /* ---------------- FILE VALIDATION ---------------- */
 
   handleFile(file: File): void {
+
+    this.errorMessage = '';
+    this.result = null;
 
     const allowedTypes = [
       'application/pdf',
@@ -68,92 +107,136 @@ export class ResumeUpload {
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ];
 
+    const fileName = file.name.toLowerCase();
+
+    const validExtension =
+      fileName.endsWith('.pdf') ||
+      fileName.endsWith('.doc') ||
+      fileName.endsWith('.docx');
+
+    const validType =
+      allowedTypes.includes(file.type) || validExtension;
+
+    if (!validType) {
+      this.selectedFile = null;
+      this.state = 'error';
+      this.errorMessage = 'Please upload a PDF, DOC, or DOCX file.';
+      return;
+    }
+
+    // 5 MB limit
     const maxSize = 5 * 1024 * 1024;
 
-
-    if (!allowedTypes.includes(file.type)) {
-      alert('Please upload a PDF, DOC or DOCX file.');
-      return;
-    }
-
-
     if (file.size > maxSize) {
-      alert('File size must be less than 5 MB.');
+      this.selectedFile = null;
+      this.state = 'error';
+      this.errorMessage = 'File size must be less than 5 MB.';
       return;
     }
-
 
     this.selectedFile = file;
-    this.skills = [];
+    this.state = 'ready';
   }
 
+  /* ---------------- ANALYZE RESUME ---------------- */
+
+  analyzeResume(): void {
+
+    if (!this.selectedFile) {
+      return;
+    }
+
+    this.state = 'analyzing';
+    this.errorMessage = '';
+    this.result = null;
+
+    const formData = new FormData();
+
+    formData.append('resume', this.selectedFile);
+
+    this.http.post<ResumeResult>(
+      this.API_URL,
+      formData
+    ).subscribe({
+
+      next: (response) => {
+
+        console.log('Resume analysis response:', response);
+
+        this.result = {
+          headline: response?.headline || '',
+          yearsOfExperience: response?.yearsOfExperience || 0,
+          technicalSkills: response?.technicalSkills || [],
+          education: response?.education || [],
+          projects: response?.projects || [],
+          experience: response?.experience || [],
+          interviewAreas: response?.interviewAreas || []
+        };
+
+        this.state = 'complete';
+      },
+
+      error: (error) => {
+
+        console.error('Resume analysis error:', error);
+
+        this.state = 'error';
+
+        if (error.status === 0) {
+          this.errorMessage =
+            'Unable to connect to the server. Please make sure your Flask backend is running.';
+        } else if (error.status === 400) {
+          this.errorMessage =
+            'The uploaded resume could not be processed. Please try another file.';
+        } else {
+          this.errorMessage =
+            'Something went wrong while analyzing the resume. Please try again.';
+        }
+      }
+    });
+  }
+
+  /* ---------------- REMOVE FILE ---------------- */
 
   removeFile(): void {
 
     this.selectedFile = null;
-    this.skills = [];
+    this.result = null;
+    this.errorMessage = '';
+    this.state = 'idle';
 
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
     }
   }
 
+  /* ---------------- TRY AGAIN ---------------- */
 
-  getFileSize(bytes: number): string {
-
-    if (bytes < 1024) {
-      return bytes + ' Bytes';
-    }
-
-    if (bytes < 1024 * 1024) {
-      return (bytes / 1024).toFixed(1) + ' KB';
-    }
-
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  tryAgain(): void {
+    this.removeFile();
+    this.openFileBrowser();
   }
 
+  /* ---------------- FILE SIZE ---------------- */
 
-  analyzeResume(event: Event): void {
+  formatFileSize(bytes: number): string {
 
-    event.stopPropagation();
-
-    if (!this.selectedFile) {
-      return;
+    if (bytes === 0) {
+      return '0 Bytes';
     }
 
-    this.isAnalyzing = true;
+    const units = ['Bytes', 'KB', 'MB'];
 
+    const index = Math.floor(
+      Math.log(bytes) / Math.log(1024)
+    );
 
-    // Temporary demo skill extraction
-    // Later this will connect to your Flask/AI backend.
-
-    setTimeout(() => {
-
-      this.skills = [
-        'Python',
-        'Java',
-        'SQL',
-        'MySQL',
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'Flask',
-        'Data Analysis',
-        'Machine Learning',
-        'Git',
-        'Problem Solving'
-      ];
-
-      this.isAnalyzing = false;
-
-    }, 2000);
+    return (
+      parseFloat(
+        (bytes / Math.pow(1024, index)).toFixed(2)
+      ) +
+      ' ' +
+      units[index]
+    );
   }
-
-
-  continueToInterview(): void {
-
-    console.log('Starting personalized interview...');
-
-  }
-
 }
