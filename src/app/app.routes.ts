@@ -8,6 +8,7 @@ import { ProfileComponent } from './page/profile/profile.component';
 // import { Kan10Component } from './role-config/kan10.component'; 
 import { authGuard } from './core/guards/auth.guard';
 import { RoleConfigComponent } from './role-config/role-config.component';
+import { ResultReportComponent } from './ResultReport/resultReport.component';
 
 
 
@@ -41,6 +42,10 @@ export const routes: Routes = [
   {
     path: 'role-config',
     component: RoleConfigComponent
-  }
+  },
+  {
+  path: 'result-report',
+  component: ResultReportComponent
+}
   
 ]; 

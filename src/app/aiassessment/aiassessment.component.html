@@ -1,354 +1,668 @@
-<div class="interview-page">
+<div class="app-shell">
 
-  <!-- HEADER -->
-  <header class="header">
+  <!-- ================= NAVBAR ================= -->
+
+  <header class="topbar">
 
     <div class="brand">
-      <div class="brand-icon">H</div>
-      <span>HirePilot</span>
+
+      <div class="brand-mark">
+        H
+      </div>
+
+      <div>
+
+        <div class="brand-name">
+          Hire<span>Pilot</span>
+        </div>
+
+        <div class="brand-subtitle">
+          AI Interview Platform
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="header-right">
 
-      <span class="header-label">
-        AI Interview
-      </span>
+    <div class="topbar-right">
 
-      <span class="live-status">
+      <div class="session-status">
+
         <span class="live-dot"></span>
-        LIVE
-      </span>
 
-      <span class="timer">
-        ⏱ {{ time }}
-      </span>
+        LIVE SESSION
+
+      </div>
+
+
+      <div class="timer-pill">
+
+        <span class="timer-icon">
+          ◷
+        </span>
+
+        {{ formattedTime }}
+
+      </div>
+
+
+      <div class="avatar">
+        TN
+      </div>
 
     </div>
 
   </header>
 
 
-  <!-- MAIN CONTENT -->
-  <main class="main-container">
 
+  <!-- ================= HERO ================= -->
 
-    <!-- HERO SECTION -->
-    <section class="hero">
+  <section class="hero">
 
-      <div class="hero-content">
+    <div>
 
-        <div class="eyebrow">
-          ✨ AI-POWERED INTERVIEW
-        </div>
+      <div class="eyebrow">
 
-        <h1>
-          AI Interview
-          <span>Assessment</span>
-        </h1>
+        <span>✦</span>
 
-        <p class="hero-text">
-          Let's discover what you can do. 🚀
-        </p>
-
-        <p class="hero-description">
-          This AI-powered interview is designed to understand
-          your skills, problem-solving ability, and communication.
-          Take your time, think clearly, and show us what you know.
-        </p>
+        AI-POWERED ASSESSMENT
 
       </div>
 
 
-      <!-- ASSESSMENT INFO -->
+      <h1>
 
-      <div class="info-cards">
+        AI Interview
 
-        <div class="info-card">
-          <span class="info-icon">⏱</span>
+        <span>Assessment</span>
 
-          <div>
-            <strong>15 min</strong>
-            <small>Estimated time</small>
-          </div>
+      </h1>
+
+
+      <p>
+
+        Show what you know. Answer naturally, think clearly,
+        and let HirePilot evaluate your technical skills
+        and communication.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="hero-stats">
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ◷
         </div>
 
+        <div>
 
-        <div class="info-card">
-          <span class="info-icon">🎯</span>
+          <strong>
+            15 min
+          </strong>
 
-          <div>
-            <strong>10 Questions</strong>
-            <small>Interview questions</small>
-          </div>
-        </div>
+          <span>
+            Estimated time
+          </span>
 
-
-        <div class="info-card">
-          <span class="info-icon">🧠</span>
-
-          <div>
-            <strong>Technical</strong>
-            <small>Skills assessment</small>
-          </div>
         </div>
 
       </div>
 
-    </section>
 
 
-    <!-- INTERVIEW HEADER -->
+      <div class="stat-card">
 
-    <div class="session-header">
+        <div class="stat-icon">
+          ◎
+        </div>
+
+        <div>
+
+          <strong>
+            {{ totalQuestions }}
+          </strong>
+
+          <span>
+            Interview questions
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ⌘
+        </div>
+
+        <div>
+
+          <strong>
+            Technical
+          </strong>
+
+          <span>
+            Skills assessment
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= MAIN CONTENT ================= -->
+
+  <main class="content">
+
+
+    <div class="session-heading">
 
       <div>
 
-        <p class="session-label">
+        <p class="section-label">
           YOUR INTERVIEW SESSION
         </p>
 
         <h2>
-          {{ interviewTitle }}
-        </h2>
 
-        <span>
-          {{ interviewRound }}
-        </span>
+          Software Developer
+
+          <span>·</span>
+
+          Technical Round
+
+        </h2>
 
       </div>
 
 
-      <div class="question-number">
+      <div class="question-counter">
 
         <strong>
           {{ currentQuestion }}
         </strong>
 
         <span>
-          / {{ totalQuestions }}
+          / {{ totalQuestions }} Questions
         </span>
-
-        <small>
-          Question
-        </small>
 
       </div>
 
     </div>
 
 
-    <!-- INTERVIEW AREA -->
-
-    <section class="interview-area">
-
-
-      <!-- AI INTERVIEWER -->
-
-      <div class="interviewer-card">
-
-        <div class="ready-badge">
-          ● Ready to talk
-        </div>
-
-
-        <div class="avatar-glow">
-
-          <div class="ai-avatar">
-            🤖
-          </div>
-
-        </div>
-
-
-        <h3>
-          AI Interviewer
-        </h3>
-
-        <p>
-          I'm here to guide you through
-          your interview.
-        </p>
-
-
-        <div class="wave">
-
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-
-        </div>
-
-      </div>
-
-
-      <!-- CONVERSATION -->
-
-      <div class="conversation">
-
-
-        <!-- AI MESSAGE -->
-
-        <div class="ai-message">
-
-          <div class="message-top">
-
-            <div class="small-ai-icon">
-              ✦
-            </div>
-
-            <div>
-
-              <strong>
-                AI Interviewer
-              </strong>
-
-              <small>
-                Just now
-              </small>
-
-            </div>
-
-          </div>
-
-
-          <p class="question">
-            Let's start! Tell me about a project
-            where you faced a difficult technical
-            problem and how you solved it.
-          </p>
-
-
-          <div class="question-tags">
-
-            <span>
-              💻 Problem Solving
-            </span>
-
-            <span>
-              🟡 Medium
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <!-- RESPONSE -->
-
-        <div class="response-card">
-
-          <div class="response-header">
-
-            <div>
-              <h3>Your response</h3>
-
-              <p>
-                Speak naturally or type your answer below.
-              </p>
-            </div>
-
-            <span>
-              {{ answer.length }}/1000
-            </span>
-
-          </div>
-
-
-          <textarea
-            [(ngModel)]="answer"
-            maxlength="1000"
-            placeholder="Take a moment to think. There's no need to rush...">
-          </textarea>
-
-
-          <div class="response-actions">
-
-            <button class="record-button">
-              🎤
-              Start Recording
-            </button>
-
-            <button class="continue-button">
-              Continue
-              →
-            </button>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
 
     <!-- PROGRESS -->
 
-    <section class="progress-section">
+    <div class="progress-track">
 
-      <div class="progress-top">
+      <div
+        class="progress-value"
+        [style.width.%]="progress">
+      </div>
 
-        <div>
+    </div>
+
+
+
+    <!-- ================= INTERVIEW GRID ================= -->
+
+    <div class="interview-grid">
+
+
+      <!-- ================= AI PANEL ================= -->
+
+      <section class="ai-card">
+
+
+        <div class="ai-card-header">
+
+          <div class="status-badge">
+
+            <span class="pulse"></span>
+
+            AI INTERVIEWER
+
+          </div>
+
+
+          <button
+            class="more-btn"
+            aria-label="More options">
+
+            •••
+
+          </button>
+
+        </div>
+
+
+
+        <div class="ai-stage">
+
+
+          <div class="orb orb-one"></div>
+
+          <div class="orb orb-two"></div>
+
+          <div class="orb orb-three"></div>
+
+
+
+          <!-- AI AVATAR -->
+
+          <div class="ai-avatar">
+
+
+            <div class="avatar-ring ring-one"></div>
+
+            <div class="avatar-ring ring-two"></div>
+
+
+            <div class="bot-face">
+
+              <div class="bot-antenna"></div>
+
+
+              <div class="bot-eyes">
+
+                <i></i>
+
+                <i></i>
+
+              </div>
+
+
+              <div class="bot-mouth"></div>
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- VOICE WAVES -->
+
+          <div class="speaking">
+
+            <span class="wave w1"></span>
+
+            <span class="wave w2"></span>
+
+            <span class="wave w3"></span>
+
+            <span class="wave w4"></span>
+
+            <span class="wave w5"></span>
+
+          </div>
+
+
+
+          <h3>
+            I'm listening...
+          </h3>
+
+
+          <p>
+
+            Take your time. Your answer will be evaluated
+
+            <br>
+
+            for clarity, confidence and technical depth.
+
+          </p>
+
+
+        </div>
+
+
+
+        <div class="ai-card-footer">
+
+          <span>●</span>
+
+          AI is actively monitoring this session
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- ================= QUESTION PANEL ================= -->
+
+      <section class="question-card">
+
+
+        <div class="question-top">
+
+
+          <div class="category">
+
+            <span class="category-icon">
+              ◈
+            </span>
+
+            {{ question.category }}
+
+          </div>
+
+
+          <span
+            class="difficulty"
+            [class.hard]="question.difficulty === 'Hard'">
+
+            {{ question.difficulty }}
+
+          </span>
+
+
+        </div>
+
+
+
+        <div class="question-meta">
+
+          QUESTION {{ currentQuestion }}
+
+          <span class="meta-dot">
+            •
+          </span>
+
+          BEHAVIORAL + TECHNICAL
+
+        </div>
+
+
+
+        <h2>
+
+          {{ question.question }}
+
+        </h2>
+
+
+
+        <!-- INTERVIEW TIP -->
+
+        <div class="tip">
+
+          <span>
+            💡
+          </span>
+
+          <div>
+
+            <strong>
+              Interview tip
+            </strong>
+
+            <p>
+
+              Use a specific example and explain
+              your approach, decisions, and result.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ANSWER -->
+
+        <div class="answer-header">
+
+          <label for="answer">
+            Your response
+          </label>
+
+          <span>
+            {{ answer.length }} / 1000
+          </span>
+
+        </div>
+
+
+
+        <textarea
+          id="answer"
+          [(ngModel)]="answer"
+          maxlength="1000"
+          placeholder="Start typing your answer here, or use the microphone to respond naturally...">
+        </textarea>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="answer-actions">
+
+
+          <button
+            class="record-btn"
+            [class.recording]="isRecording"
+            (click)="toggleRecording()">
+
+            <span class="mic-icon">
+
+              {{ isRecording ? '■' : '●' }}
+
+            </span>
+
+            {{ isRecording
+              ? 'Stop Recording'
+              : 'Start Recording'
+            }}
+
+          </button>
+
+
+
+          <button
+            class="continue-btn"
+            [disabled]="!answer.trim()"
+            (click)="nextQuestion()">
+
+            {{ currentQuestion === totalQuestions
+              ? 'Finish Assessment'
+              : 'Continue'
+            }}
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+
+        </div>
+
+
+
+        <div class="secure-note">
+
+          <span>
+            🔒
+          </span>
+
+          Your responses are private and securely processed.
+
+        </div>
+
+
+      </section>
+
+    </div>
+
+
+
+    <!-- ================= BOTTOM PANEL ================= -->
+
+    <section class="bottom-panel">
+
+
+      <div class="progress-copy">
+
+
+        <div class="progress-title">
 
           <strong>
             Interview Progress
           </strong>
 
           <span>
-            You're doing great! Keep going. 💪
+            {{ progress }}%
           </span>
 
         </div>
 
-        <strong>
-          {{ currentQuestion * 10 }}%
-        </strong>
 
-      </div>
+        <div class="mini-progress">
 
+          <div
+            [style.width.%]="progress">
+          </div>
 
-      <div class="progress-track">
-
-        <div
-          class="progress-fill"
-          [style.width.%]="currentQuestion * 10">
         </div>
 
-      </div>
-
-
-      <div class="tip">
-
-        <span>💡</span>
 
         <p>
-          <strong>Interview tip:</strong>
-          Give specific examples and explain
-          your thought process when answering.
+
+          You're making great progress.
+
+          Keep going! 🚀
+
         </p>
 
+
       </div>
+
+
+
+      <div class="next-up">
+
+
+        <span class="next-icon">
+          ✦
+        </span>
+
+
+        <div>
+
+          <strong>
+            Up next
+          </strong>
+
+          <p>
+
+            More technical questions tailored
+            to your profile.
+
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+
+      <button
+        class="end-btn"
+        (click)="endInterview()">
+
+        End Interview
+
+      </button>
+
 
     </section>
 
 
-    <!-- FOOTER -->
+  </main>
 
-    <div class="footer-actions">
+
+
+  <!-- ================= MODAL ================= -->
+
+  <div
+    class="modal-backdrop"
+    *ngIf="showEndModal">
+
+
+    <div class="modal">
+
+
+      <div class="modal-icon">
+        ✓
+      </div>
+
+
+      <h2>
+        End this interview?
+      </h2>
+
 
       <p>
-        🔒 Your responses are private and secure.
+
+        Your current progress will be saved
+        and you'll be able to view your
+        assessment results.
+
       </p>
 
-      <button class="end-button">
-        End Interview
-      </button>
+
+
+      <div class="modal-actions">
+
+
+        <button
+          class="cancel-btn"
+          (click)="closeModal()">
+
+          Continue Interview
+
+        </button>
+
+
+        <button
+          class="confirm-btn"
+          (click)="closeModal()">
+
+          End & View Results
+
+        </button>
+
+
+      </div>
+
 
     </div>
 
-  </main>
+
+  </div>
 
 </div>
