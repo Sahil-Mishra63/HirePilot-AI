@@ -1,0 +1,174 @@
+<div class="role-config">
+
+  <!-- HEADER -->
+  <div class="header">
+
+    <span class="step">
+      STEP 01
+    </span>
+
+    <h1>Select Your Role</h1>
+
+    <p>
+      Choose the role you want to generate interview questions for.
+    </p>
+
+  </div>
+
+
+  <!-- ROLE OPTIONS -->
+  <div class="role-section">
+
+    <h2>Select a role</h2>
+
+    <div class="role-grid">
+
+      <button
+        *ngFor="let role of roles"
+        type="button"
+        class="role-card"
+        [class.selected]="selectedRole === role.id"
+        (click)="selectRole(role.id)"
+      >
+
+        <div class="role-icon">
+          {{ role.icon }}
+        </div>
+
+        <div class="role-info">
+
+          <div class="role-name">
+            {{ role.name }}
+          </div>
+
+          <div class="role-description">
+            {{ role.description }}
+          </div>
+
+        </div>
+
+        <div class="radio">
+
+          <span *ngIf="selectedRole === role.id"></span>
+
+        </div>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONFIGURATION -->
+  <div class="configuration">
+
+    <div class="config-box">
+
+      <label>Number of Questions</label>
+
+      <div class="question-buttons">
+
+        <button
+          type="button"
+          [class.active]="questionCount === 5"
+          (click)="questionCount = 5"
+        >
+          5
+        </button>
+
+        <button
+          type="button"
+          [class.active]="questionCount === 10"
+          (click)="questionCount = 10"
+        >
+          10
+        </button>
+
+        <button
+          type="button"
+          [class.active]="questionCount === 15"
+          (click)="questionCount = 15"
+        >
+          15
+        </button>
+
+        <button
+          type="button"
+          [class.active]="questionCount === 20"
+          (click)="questionCount = 20"
+        >
+          20
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="config-box">
+
+      <label>Difficulty</label>
+
+      <div class="difficulty-buttons">
+
+        <button
+          type="button"
+          [class.active]="difficulty === 'easy'"
+          (click)="difficulty = 'easy'"
+        >
+          Easy
+        </button>
+
+        <button
+          type="button"
+          [class.active]="difficulty === 'medium'"
+          (click)="difficulty = 'medium'"
+        >
+          Medium
+        </button>
+
+        <button
+          type="button"
+          [class.active]="difficulty === 'hard'"
+          (click)="difficulty = 'hard'"
+        >
+          Hard
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="footer">
+
+    <div class="selected-role">
+
+      <span>Selected Role</span>
+
+      <strong>
+        {{ selectedRole }}
+      </strong>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="generate-btn"
+      (click)="generateQuestions()"
+    >
+
+      Generate Questions
+
+      <span>→</span>
+
+    </button>
+
+  </div>
+
+</div>
