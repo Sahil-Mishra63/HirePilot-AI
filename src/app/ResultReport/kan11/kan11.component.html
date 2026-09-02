@@ -1,0 +1,652 @@
+<div class="result-page">
+
+  <!-- Background decoration -->
+  <div class="bg-orb orb-one"></div>
+  <div class="bg-orb orb-two"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="top-nav">
+
+    <div class="brand">
+
+      <div class="brand-logo">
+        <span>✦</span>
+      </div>
+
+      <div>
+        <div class="brand-name">HirePilot</div>
+        <div class="brand-caption">AI Career Assistant</div>
+      </div>
+
+    </div>
+
+    <div class="nav-right">
+
+      <div class="ai-status">
+        <span class="status-pulse"></span>
+        AI Analysis Complete
+      </div>
+
+      <button
+        class="nav-button"
+        (click)="goToDashboard()">
+        Dashboard
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="container">
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+      <div class="hero-badge">
+        <span>✦</span>
+        INTERVIEW ASSESSMENT
+      </div>
+
+      <h1>
+        Your Interview
+        <span>Performance Report</span>
+      </h1>
+
+      <p>
+        Great work! Our AI has analyzed your interview
+        performance and prepared a personalized report.
+      </p>
+
+      <div class="hero-meta">
+
+        <span>
+          📅 {{ assessmentDate | date:'MMM d, y' }}
+        </span>
+
+        <span class="meta-dot"></span>
+
+        <span>
+          ⏱ {{ duration }}
+        </span>
+
+        <span class="meta-dot"></span>
+
+        <span>
+          🎯 {{ totalQuestions }} Questions
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= SCORE SECTION ================= -->
+
+    <section class="score-section">
+
+      <div class="score-glow"></div>
+
+      <div class="score-card">
+
+        <div class="score-header">
+
+          <div>
+
+            <span class="section-label">
+              OVERALL AI SCORE
+            </span>
+
+            <h2>
+              Interview Performance
+            </h2>
+
+          </div>
+
+          <div class="verified">
+            <span>✓</span>
+            AI Verified
+          </div>
+
+        </div>
+
+
+        <div class="score-content">
+
+          <!-- Score Circle -->
+
+          <div class="score-ring">
+
+            <svg viewBox="0 0 220 220">
+
+              <circle
+                class="ring-bg"
+                cx="110"
+                cy="110"
+                r="92">
+              </circle>
+
+              <circle
+                class="ring-progress"
+                cx="110"
+                cy="110"
+                r="92"
+                [style.stroke-dashoffset]="
+                  578 - (578 * overallScore / 100)
+                ">
+              </circle>
+
+            </svg>
+
+            <div class="score-value">
+
+              <strong>
+                {{ overallScore }}
+              </strong>
+
+              <span>
+                / 100
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- Score Message -->
+
+          <div class="score-message">
+
+            <div class="achievement">
+
+              <span class="achievement-icon">
+                🏆
+              </span>
+
+              <span>
+                {{ performanceLevel }}
+              </span>
+
+            </div>
+
+            <h3>
+              You're Interview Ready!
+            </h3>
+
+            <p>
+              Your performance shows strong potential.
+              You demonstrated technical knowledge,
+              problem-solving ability and good communication.
+            </p>
+
+            <div class="score-tags">
+
+              <span>Strong Candidate</span>
+              <span>Above Average</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Mini stats -->
+
+      <div class="mini-stats">
+
+        <div class="mini-stat">
+
+          <div class="mini-icon purple">
+            ⚡
+          </div>
+
+          <div>
+            <span>AI Confidence</span>
+            <strong>94%</strong>
+          </div>
+
+        </div>
+
+
+        <div class="mini-stat">
+
+          <div class="mini-icon green">
+            ✓
+          </div>
+
+          <div>
+            <span>Questions Completed</span>
+            <strong>{{ answeredQuestions }}/{{ totalQuestions }}</strong>
+          </div>
+
+        </div>
+
+
+        <div class="mini-stat">
+
+          <div class="mini-icon blue">
+            ◉
+          </div>
+
+          <div>
+            <span>Readiness</span>
+            <strong>High</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= SKILLS ================= -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <div>
+
+          <div class="section-label">
+            SKILL ANALYSIS
+          </div>
+
+          <h2>
+            Your Performance Breakdown
+          </h2>
+
+        </div>
+
+        <span>
+          Powered by HirePilot AI
+        </span>
+
+      </div>
+
+
+      <div class="skills-grid">
+
+        <div
+          class="skill-card"
+          *ngFor="let category of categoryScores">
+
+          <div class="skill-top">
+
+            <div class="skill-icon">
+              {{ category.icon }}
+            </div>
+
+            <div class="skill-score">
+              {{ category.score }}%
+            </div>
+
+          </div>
+
+          <h3>
+            {{ category.name }}
+          </h3>
+
+          <div class="skill-bar">
+
+            <div
+              [style.width.%]="category.score">
+            </div>
+
+          </div>
+
+          <div class="skill-bottom">
+
+            <span>
+              Performance
+            </span>
+
+            <strong>
+              {{
+                category.score >= 85
+                  ? 'Excellent'
+                  : category.score >= 70
+                    ? 'Good'
+                    : 'Needs Focus'
+              }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= AI INSIGHT ================= -->
+
+    <section class="ai-card">
+
+      <div class="ai-pattern"></div>
+
+      <div class="ai-header">
+
+        <div class="ai-logo">
+          ✦
+        </div>
+
+        <div>
+
+          <span>
+            HIREPILOT AI
+          </span>
+
+          <h2>
+            AI Interview Insight
+          </h2>
+
+        </div>
+
+        <div class="ai-badge">
+          Analysis Complete ✓
+        </div>
+
+      </div>
+
+
+      <div class="ai-content">
+
+        <div class="ai-quote">
+          “
+        </div>
+
+        <p>
+          {{ aiFeedback }}
+        </p>
+
+      </div>
+
+
+      <div class="ai-footer">
+
+        <span>
+          ✦ Personalized feedback based on your responses
+        </span>
+
+        <span>
+          Confidence: High
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= FEEDBACK ================= -->
+
+    <section class="feedback-grid">
+
+
+      <!-- Strengths -->
+
+      <div class="insight-card strengths">
+
+        <div class="insight-header">
+
+          <div class="insight-icon">
+            💪
+          </div>
+
+          <div>
+
+            <span>
+              POSITIVE SIGNALS
+            </span>
+
+            <h2>
+              Your Strengths
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="insight-list">
+
+          <div
+            *ngFor="let strength of strengths"
+            class="insight-item">
+
+            <span class="check">
+              ✓
+            </span>
+
+            <span>
+              {{ strength }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Improvements -->
+
+      <div class="insight-card improvements">
+
+        <div class="insight-header">
+
+          <div class="insight-icon">
+            🚀
+          </div>
+
+          <div>
+
+            <span>
+              GROWTH OPPORTUNITIES
+            </span>
+
+            <h2>
+              Areas to Improve
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="insight-list">
+
+          <div
+            *ngFor="let improvement of improvements"
+            class="insight-item">
+
+            <span class="arrow">
+              →
+            </span>
+
+            <span>
+              {{ improvement }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= QUESTION ANALYSIS ================= -->
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <div>
+
+          <div class="section-label">
+            RESPONSE ANALYSIS
+          </div>
+
+          <h2>
+            Question-by-Question Performance
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="question-list">
+
+        <div
+          class="question-card"
+          *ngFor="let result of questionResults">
+
+          <div class="question-number">
+            {{ result.number }}
+          </div>
+
+          <div class="question-main">
+
+            <div class="question-category">
+              {{ result.category }}
+            </div>
+
+            <h3>
+              {{ result.question }}
+            </h3>
+
+            <div class="question-progress">
+
+              <div class="question-track">
+
+                <div
+                  [style.width.%]="result.score">
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="question-result">
+
+            <strong>
+              {{ result.score }}
+            </strong>
+
+            <span>
+              /100
+            </span>
+
+            <div
+              class="result-pill"
+              [ngClass]="getStatusClass(result.status)">
+
+              <span></span>
+
+              {{ result.status }}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= FINAL CTA ================= -->
+
+    <section class="final-card">
+
+      <div class="final-decoration">
+        ✦
+      </div>
+
+      <div class="final-content">
+
+        <div class="final-icon">
+          🚀
+        </div>
+
+        <div>
+
+          <span>
+            KEEP BUILDING YOUR CONFIDENCE
+          </span>
+
+          <h2>
+            Ready to take another shot?
+          </h2>
+
+          <p>
+            Practice again and use your AI feedback
+            to improve your next interview.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="final-buttons">
+
+        <button
+          class="outline-btn"
+          (click)="goToDashboard()">
+
+          ← Dashboard
+
+        </button>
+
+        <button
+          class="primary-btn"
+          (click)="retakeAssessment()">
+
+          ✦ Retake Assessment
+
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="footer-brand">
+      ✦ HirePilot
+    </div>
+
+    <span>
+      AI-powered interview preparation
+    </span>
+
+    <span>
+      © 2026 HirePilot
+    </span>
+
+  </footer>
+
+</div>
