@@ -1,0 +1,432 @@
+<div class="upload-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+
+    <div class="step">
+      STEP 2 OF 6
+    </div>
+
+    <h1>
+      Show us what you bring to the table
+    </h1>
+
+    <p>
+      Upload your resume and HirePilot will extract your skills,
+      education, projects and experience to personalize your interview.
+    </p>
+
+  </div>
+
+
+  <!-- INFO CARDS -->
+  <div class="info-grid">
+
+    <div class="info-card">
+      <div class="info-icon">📄</div>
+
+      <div>
+        <strong>Resume Analysis</strong>
+        <span>Automatically extract your profile</span>
+      </div>
+    </div>
+
+
+    <div class="info-card">
+      <div class="info-icon">🎯</div>
+
+      <div>
+        <strong>Personalized</strong>
+        <span>Questions based on your background</span>
+      </div>
+    </div>
+
+
+    <div class="info-card">
+      <div class="info-icon">⚡</div>
+
+      <div>
+        <strong>Fast Processing</strong>
+        <span>Get your profile in seconds</span>
+      </div>
+    </div>
+
+
+    <div class="info-card">
+      <div class="info-icon">🔒</div>
+
+      <div>
+        <strong>Private & Secure</strong>
+        <span>Your resume stays protected</span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- UPLOAD AREA -->
+  <div
+    class="dropzone"
+
+    [class.dragging]="state === 'ready' && !selectedFile"
+
+    [class.has-file]="selectedFile"
+
+    [class.has-error]="state === 'error'"
+
+    (dragover)="onDragOver($event)"
+
+    (dragleave)="onDragLeave($event)"
+
+    (drop)="onDrop($event)"
+  >
+
+    <input
+      #fileInput
+      type="file"
+      class="file-input"
+
+      accept=".pdf,.doc,.docx"
+
+      (change)="onFileSelected($event)"
+    />
+
+
+    <!-- EMPTY STATE -->
+    <div
+      class="upload-content"
+      *ngIf="!selectedFile"
+    >
+
+      <div class="upload-icon">
+        ↑
+      </div>
+
+      <h2>
+        Drag & drop your resume here
+      </h2>
+
+      <p>
+        or
+      </p>
+
+      <button
+        type="button"
+        class="browse-button"
+        (click)="openFileBrowser()"
+      >
+        Browse your files
+      </button>
+
+      <div class="file-info">
+        PDF, DOC or DOCX · Maximum 5 MB
+      </div>
+
+    </div>
+
+
+    <!-- SELECTED FILE -->
+    <div
+      class="file-content"
+      *ngIf="selectedFile"
+    >
+
+      <div class="file-icon">
+        📄
+      </div>
+
+      <div class="file-details">
+
+        <h3>
+          {{ selectedFile.name }}
+        </h3>
+
+        <p>
+          {{ formatFileSize(selectedFile.size) }}
+        </p>
+
+        <span
+          class="file-status"
+          *ngIf="state !== 'analyzing'"
+        >
+          ✓ Ready to analyze
+        </span>
+
+        <span
+          class="file-status analyzing"
+          *ngIf="state === 'analyzing'"
+        >
+          Analyzing resume...
+        </span>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="remove-button"
+
+        [disabled]="state === 'analyzing'"
+
+        (click)="removeFile()"
+      >
+        ×
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ERROR -->
+  <div
+    class="error-message"
+    *ngIf="state === 'error'"
+  >
+
+    <span>⚠</span>
+
+    <span>
+      {{ errorMessage }}
+    </span>
+
+  </div>
+
+
+  <!-- ANALYZE BUTTON -->
+  <button
+    type="button"
+
+    class="analyze-button"
+
+    [disabled]="!selectedFile || state === 'analyzing'"
+
+    (click)="analyzeResume()"
+  >
+
+    <span *ngIf="state !== 'analyzing'">
+      Analyze My Resume
+    </span>
+
+    <span
+      class="loading"
+      *ngIf="state === 'analyzing'"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+
+      Analyzing...
+    </span>
+
+  </button>
+
+
+  <!-- PRIVACY -->
+  <div class="privacy">
+    🔒 Your resume is securely processed and used only
+    to personalize your interview experience.
+  </div>
+
+
+  <!-- RESULTS -->
+  <section
+    class="results"
+    *ngIf="state === 'complete' && result"
+  >
+
+    <!-- RESULT HEADER -->
+    <div class="results-header">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <div>
+        <span class="result-label">
+          RESUME ANALYSIS COMPLETE
+        </span>
+
+        <h2>
+          Here's what we found
+        </h2>
+
+        <p *ngIf="result.headline">
+          {{ result.headline }}
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- EXPERIENCE -->
+    <div class="experience-summary">
+
+      <strong>
+        {{ result.yearsOfExperience || 0 }}
+      </strong>
+
+      <span>
+        Years of Experience
+      </span>
+
+    </div>
+
+
+    <!-- TECHNICAL SKILLS -->
+    <div
+      class="result-section"
+      *ngIf="result.technicalSkills?.length"
+    >
+
+      <div class="section-title">
+        <span>💻</span>
+        <h3>Technical Skills</h3>
+      </div>
+
+      <div class="tags">
+
+        <span
+          class="tag"
+          *ngFor="let skill of result.technicalSkills"
+        >
+          {{ skill }}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- EDUCATION -->
+    <div
+      class="result-section"
+      *ngIf="result.education?.length"
+    >
+
+      <div class="section-title">
+        <span>🎓</span>
+        <h3>Education</h3>
+      </div>
+
+      <div class="result-list">
+
+        <div
+          class="result-item"
+          *ngFor="let education of result.education"
+        >
+          <span class="bullet"></span>
+
+          <span>
+            {{ education }}
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PROJECTS -->
+    <div
+      class="result-section"
+      *ngIf="result.projects?.length"
+    >
+
+      <div class="section-title">
+        <span>🚀</span>
+        <h3>Projects</h3>
+      </div>
+
+      <div class="result-list">
+
+        <div
+          class="result-item"
+          *ngFor="let project of result.projects"
+        >
+          <span class="bullet"></span>
+
+          <span>
+            {{ project }}
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- EXPERIENCE DETAILS -->
+    <div
+      class="result-section"
+      *ngIf="result.experience?.length"
+    >
+
+      <div class="section-title">
+        <span>💼</span>
+        <h3>Experience</h3>
+      </div>
+
+      <div class="result-list">
+
+        <div
+          class="result-item"
+          *ngFor="let experience of result.experience"
+        >
+          <span class="bullet"></span>
+
+          <span>
+            {{ experience }}
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- INTERVIEW FOCUS -->
+    <div
+      class="result-section focus-section"
+      *ngIf="result.interviewAreas?.length"
+    >
+
+      <div class="section-title">
+        <span>🎯</span>
+
+        <div>
+          <h3>Interview Focus Areas</h3>
+
+          <p>
+            Topics that can be personalized from your resume.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="tags">
+
+        <span
+          class="focus-tag"
+          *ngFor="let area of result.interviewAreas"
+        >
+          {{ area }}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONTINUE -->
+    <button
+      type="button"
+      class="continue-button"
+    >
+      Continue to Interview Preparation →
+    </button>
+
+  </section>
+
+</div>

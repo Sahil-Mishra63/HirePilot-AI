@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
 import {
   AfterViewInit,
   ElementRef,
@@ -13,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })
@@ -47,13 +48,13 @@ export class LandingComponent {
         opacity: 0,
         duration: 0.8,
         ease: 'power3.out'
-      }, '-=0.5')
-      .from('.hero-button', {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.out'
-      }, '-=0.4');
+      }, '-=0.5');
+      // .from('.hero-button', {
+      //   y: 20,
+      //   opacity: 0,
+      //   duration: 0.6,
+      //   ease: 'power3.out'
+      // }, '-=0.4');
 
 
     // works

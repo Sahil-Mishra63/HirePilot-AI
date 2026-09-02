@@ -1,22 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-interface InterviewQuestion {
-  category: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  question: string;
-}
-
 @Component({
-  selector: 'app-root',
+  selector: 'app-aiassessment',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  imports: [FormsModule],
+  templateUrl: './aiassessment.component.html',
+  styleUrl: './aiassessment.component.scss'
 })
-export class AppComponent implements OnInit, OnDestroy {
-
+export class AiassessmentComponent {
   currentQuestion = 3;
   totalQuestions = 10;
 

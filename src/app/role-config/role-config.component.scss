@@ -1,0 +1,459 @@
+.role-config {
+  min-height: 100vh;
+  padding: 50px 8%;
+  background: #f7faff;
+  color: #172033;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.step {
+  display: inline-block;
+
+  padding: 8px 16px;
+
+  background: #eef4ff;
+  border: 1px solid #cddcff;
+  border-radius: 30px;
+
+  color: #2563eb;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.header h1 {
+  margin: 24px 0 10px;
+
+  color: #111827;
+
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.header p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   ROLE SECTION
+========================= */
+
+.role-section {
+  max-width: 1000px;
+  margin: 50px auto 0;
+}
+
+.role-section h2 {
+  margin-bottom: 18px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   ROLE GRID
+========================= */
+
+.role-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+
+/* =========================
+   ROLE CARD
+========================= */
+
+.role-card {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: 88px;
+
+  padding: 18px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  color: #172033;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.role-card:hover {
+  border-color: #93b4ff;
+
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
+
+  transform: translateY(-2px);
+}
+
+.role-card.selected {
+  background: #f4f7ff;
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 2px rgba(37, 99, 235, 0.08),
+    0 8px 24px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================
+   ROLE ICON
+========================= */
+
+.role-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  margin-right: 16px;
+
+  background: #eef4ff;
+
+  border-radius: 11px;
+
+  font-size: 22px;
+
+  flex-shrink: 0;
+}
+
+.role-card.selected .role-icon {
+  background: #dbe8ff;
+}
+
+
+/* =========================
+   ROLE TEXT
+========================= */
+
+.role-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.role-name {
+  margin-bottom: 5px;
+
+  color: #1e293b;
+
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.role-card.selected .role-name {
+  color: #1d4ed8;
+}
+
+.role-description {
+  color: #64748b;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   RADIO BUTTON
+========================= */
+
+.radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  margin-left: 15px;
+
+  border: 2px solid #cbd5e1;
+
+  border-radius: 50%;
+
+  box-sizing: border-box;
+
+  flex-shrink: 0;
+}
+
+.role-card:hover .radio {
+  border-color: #93b4ff;
+}
+
+.role-card.selected .radio {
+  border-color: #2563eb;
+}
+
+.radio span {
+  width: 10px;
+  height: 10px;
+
+  background: #2563eb;
+
+  border-radius: 50%;
+}
+
+
+/* =========================
+   CONFIGURATION
+========================= */
+
+.configuration {
+  max-width: 1000px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 60px;
+
+  margin: 35px auto 0;
+
+  padding: 28px 0;
+
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.config-box {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+}
+
+.config-box label {
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   QUESTION BUTTONS
+========================= */
+
+.question-buttons,
+.difficulty-buttons {
+  display: flex;
+
+  gap: 6px;
+}
+
+.question-buttons button,
+.difficulty-buttons button {
+  min-width: 42px;
+
+  padding: 8px 12px;
+
+  background: #ffffff;
+
+  border: 1px solid #dbe2ea;
+  border-radius: 7px;
+
+  color: #64748b;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.question-buttons button:hover,
+.difficulty-buttons button:hover {
+  border-color: #93b4ff;
+
+  color: #2563eb;
+}
+
+.question-buttons button.active,
+.difficulty-buttons button.active {
+  background: #2563eb;
+
+  border-color: #2563eb;
+
+  color: #ffffff;
+
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  max-width: 1000px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 30px auto 0;
+
+  padding-top: 5px;
+}
+
+
+/* =========================
+   SELECTED ROLE
+========================= */
+
+.selected-role {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.selected-role span {
+  color: #94a3b8;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+.selected-role strong {
+  color: #1e293b;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   GENERATE BUTTON
+========================= */
+
+.generate-btn {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 15px 24px;
+
+  background: #2563eb;
+
+  border: none;
+
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.generate-btn:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+}
+
+.generate-btn:active {
+  transform: translateY(0);
+}
+
+.generate-btn span {
+  font-size: 20px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+  .role-config {
+    padding: 35px 20px;
+  }
+
+  .header h1 {
+    font-size: 36px;
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .configuration {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 22px;
+  }
+
+  .footer {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 20px;
+  }
+
+  .generate-btn {
+    justify-content: center;
+  }
+}
